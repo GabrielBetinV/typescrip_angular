@@ -26,6 +26,8 @@ https://stackblitz.com/edit/typescript-vxnz8z?file=index.ts
 
 *** Levantamos el servidor para probar => npm start
 
+Para curso  utilizaremos vite y levantamos el servicio con npm run dev
+
 
 *** Documentacion de TypeScript => https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
 
