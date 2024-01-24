@@ -1,0 +1,796 @@
+*** Instalaciones Necesarias => https://gist.github.com/Klerith/607dd6bb60b5a70bc5e4d9c81ef6501e
+
+	Google Chrome
+	Visual Studio Code
+	Postman
+	Mongo Compass
+	Git
+	Crear cuenta en GitHub y configurar desde el cmd
+
+	git config --global user.name "Gabriel Betin Valdes"
+	git config --global user.email "gabrielbetinvaldes@gmail.com"	
+
+	Node
+
+
+	Angular CLI => npm install -g @angular/cli desde el cmd como administrador
+
+
+*** Para trabar en linea
+
+https://stackblitz.com/edit/typescript-vxnz8z?file=index.ts
+
+
+
+*** Instalamos npm install => Instala todas las dependencias que necesitemos => package.json
+
+*** Levantamos el servidor para probar => npm start
+
+
+*** Documentacion de TypeScript => https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
+*** Tipos de datos y conceptos generales
+
+	*/* Variable  Implicita*/
+		let nombre1 = 'Strider';
+
+	/* Variable explicita*/
+
+		let nombre2: string = 'Gabriel'
+
+	/* Costantes */
+
+		const nombre3 = 'Strider';
+
+	* no se puede colocar numeros en los String, typeScript si respeta los tipos de dato
+
+	/* Dos tipos de datos para una variable */
+
+
+    		let hp: number | string = 95;
+
+
+	/* Variables boolean*/   
+ 
+   	 let estaVivo: boolean = true;
+
+	
+  	console.log(nombre1)
+    	console.log(nombre2)
+    	console.log(nombre3)
+    	console.log(hp)
+    	console.log(estaVivo)
+
+       
+	/*Arreglos*/
+
+/* Actualmente este arreglo es de tipo Any (Recibe cualquier datos
+    pero se debe evitar hacer esto) */
+let habilidades = [1, 'Gabriel', [10,10,15]];
+
+console.log(habilidades);
+
+/* En este caso TS interpreta el arreglo de string */
+
+let habili = ['Gabriel','Stefany','Angel','Samuel'];
+
+console.log(habilidades);
+
+/* En este caso TS interpreta el arreglo de string o de numero, pasar ek cursor para compprobar */
+
+let habilid = ['Gabriel','Stefany','Angel','Samuel',10];
+
+console.log(habilid);
+
+/*Insertar datos*/
+
+habilidades.push('David')
+
+console.log(habilidades);
+
+
+/*Especificando el tipo de datos en arreglos*/
+
+/* se debe evitar la variedad de tipo de datos */
+let hab: (boolean | string | number) []= ['Bash', 'Couter',10];
+
+hab.push(true);
+
+console.log(hab);
+
+
+/*Esto si se puede*/
+
+let arreglo:string[] = ['Hola', 'Adios']
+
+arreglo.push('Llegue')   
+
+
+console.log(arreglo);
+
+
+/* Objetos de tipo any: aunque no se inicialice una propiedad, se puede agregar mas adelante
+NO es buena practica, lo mejor es restringir
+*/
+
+const personaje1: any = {
+
+     nombre: 'Strider',
+     hp: 100,
+     habilidad: ['Correr','Dormir']
+}
+
+personaje1.pueblo = 'Sabanalarga';
+
+console.log(personaje1);
+
+
+/* Objeto con restriccion */
+const personaje2 = {
+
+    nombre: 'Strider',
+    hp: 100,
+    habilidad: ['Correr','Dormir']
+}
+
+/*personaje2.pueblo = 'Sabanalarga'; No deja agregar*/
+
+console.log(personaje2);
+
+
+/* Para trabajar con objetos se puede trabar con interface*/
+
+interface Personaje {
+
+    nombre: string;
+    hap: number;
+    habilidades: string[];
+
+    /* De esta manera colocamos la propiedad como opcional*/
+    pueblo?: string;
+
+}
+
+/* Inicializamos el objeto del tipo de la interface*/
+
+const personaje3: Personaje = {
+
+    nombre:'Gabriel',
+    hap: 10,
+    habilidades: ['sdsd','sdsd']
+
+}
+    /* Ahora si permite agregarlo, porque lo colocamos como opcional en la interface* */
+    personaje3.pueblo = 'Sabanalarga'; 
+
+
+    console.table(personaje3)
+
+*** FUNCIONES BASICAS
+
+/* FUNCIONES*/
+
+
+/* esta funcion no es estricta, si sepasan numeros realiza la suma
+y si sepasa texto, concatena*/
+
+function sumar(a, b){
+    return a + b;
+}
+const resultado1 = sumar('Gabriel ' ,'Betin')
+const resultado2 = sumar(10 ,10)
+console.log(resultado1)
+console.log(resultado2)
+
+
+/* En este caso si es estricto*/
+
+/* Opcion1, indicando el los tipos de datosque reciben y retonar */
+
+
+function suma(a:number, b:number): number{
+    return a + b;/* Se puede retornar como string */
+    /* Tambien se puede retornar tipo number
+        retunr a + b;
+    
+    */
+}
+
+/*Opcion 2 sin indicar el tipo de dato que retorna
+function suma(a:number, b:number){
+    return (a + b).toString();/* Se puede retornar como string */
+    /* Tambien se puede retornar tipo number
+        retunr a + b;
+ }   
+    */
+
+const resultado3 = sumar(20 ,10)
+console.log(resultado3)
+
+/* FUNCIONES DE FLECHAS */
+
+/* Sin especificar el tipo de dato
+const sumarFlecha = (a,b) => {
+
+    return a + b ;
+
+}*/
+
+
+/* Especificando el tipo de datos*/
+
+const sumarFlecha = (a:number,b:number):number => {
+
+    return a + b ;
+
+}
+const resultado4 = sumarFlecha(20 ,10)
+console.log(resultado4)
+
+
+/* Funciones  pasando argumentos  obligatorio*/
+
+function multiplicar(numero:number, otroNumero:number, base:number){
+    return numero * base
+}
+
+const resultado5 = multiplicar(20 ,10,10)
+console.log(resultado5)
+
+/* Funciones  pasando argumentos opcionales
+
+Este es el orden: Obligatorio, opcional(?) y por defecto
+EJEMPLO
+*/
+
+
+function multiplicar2(numero:number, otroNumero?:number, base:number = 2): number{
+    return numero * base
+}
+
+const resultado6 = multiplicar2(5,10)
+console.log(resultado6)/* Es 10,porque multiplica el obligatorio por el que esta pordefecto */
+const resultado7 = multiplicar2(5)
+console.log(resultado7)/* Es 10,porque multiplica el obligatorio por el que esta pordefecto */
+const resultado8 = multiplicar2(5,0,10)
+console.log(resultado8)/* Es 50,porque  estamos modificando el tercer parametro que es base*/
+
+/* FUNCIONES MAS ELABORADAS*/
+
+
+/*funciones que no retorna, en teoria undefined*/
+
+interface PersonajeLOR{
+    nombre: string;
+    pv: number;
+}
+
+
+function curar( personaje: PersonajeLOR, curarX: number): void{
+    personaje.pv += curarX
+    console.log(personaje);
+}
+
+
+const nuevoPersonaje: PersonajeLOR = {
+
+    nombre: 'gabriel',
+    pv: 50
+}
+
+curar(nuevoPersonaje,20) /* Imprime el personaje sumando los pv */
+
+/* Colocar una funcion dentro de la interface*/
+
+interface PersonajeNuev{
+    nombre: string;
+    pv: number;
+    mostrarPV:() => void;
+
+}   
+
+
+const nuevoPersonaje2: PersonajeNuev = {
+
+    nombre: 'gabriel',
+    pv: 50,
+    mostrarPV() {
+        console.log('Puntos de vida: ', this.pv)
+    }
+}
+
+curar(nuevoPersonaje2,20) /* Imprime el personaje sumando los pv */
+
+
+
+*** TAREAS
+
+
+/* TAREA*/
+
+
+/* Creamos la interface*/
+interface SuperHeroe {
+    nombre: string;
+    edad: number;
+    direccion: {
+        calle: string;
+        pais: string;
+        ciudad: string;
+    },  
+    mostrarDireccion: () => string; 
+} 
+
+/*Lo mejor es NO tener objetos anidados, es decir como la interface de arriba*/
+
+/*Es mejor independizarlos asi */
+
+
+interface NSuperHeroe {
+    nombre: string;
+    edad: number;
+    direccion: Direccion
+    mostrarDireccion: () => string; 
+} 
+
+interface Direccion {
+    calle: string;
+    pais: string;
+    ciudad: string;
+}
+
+
+/* Creamos un objeto*/
+const superHeroe: SuperHeroe = {
+
+    nombre: 'Spiderman',
+    edad: 30,
+    direccion: {
+        calle: 'Main St',
+        pais: 'USA',
+        ciudad: 'NY'
+    },
+    mostrarDireccion(){
+        return this.nombre + ', ' + this.direccion.ciudad + ', ' + this.direccion.pais
+    }
+}
+
+
+const NsuperHeroe: NSuperHeroe = {
+
+    nombre: 'Spiderman',
+    edad: 30,
+    direccion: {
+        calle: 'Main St',
+        pais: 'USA',
+        ciudad: 'NY'
+    },
+    mostrarDireccion(){
+        return this.nombre + ', ' + this.direccion.ciudad + ', ' + this.direccion.pais
+    }
+}
+
+/* Creamos una variable llamada direccion*/
+
+
+const direccion = superHeroe.mostrarDireccion();
+console.log(direccion)
+
+const Ndireccion = NsuperHeroe.mostrarDireccion();
+console.log(Ndireccion)
+
+
+
+*** Desestructuracion de objeto
+
+
+/* DESeSTRUCTURACION DE OBJETOS */
+
+
+/* Creamos los objetos*/
+
+interface Reproductor {
+
+    volumen: number;
+    segundo: number;
+    cancion: string;
+    detalles: Detalles
+}
+
+interface Detalles{
+
+    autor: string;
+    anio: number;
+}
+
+/* Creamos la variable de tipo reproductor*/
+const reproductor: Reproductor = {
+
+    volumen: 90,
+    segundo: 36,
+    cancion: 'Mess',
+    detalles: {
+        autor: 'Gabriel',
+        anio: 2015
+
+    }
+}
+
+/* Vamos a imprimir el objeto*/
+
+console.log('El volumen actual es: ', reproductor.volumen);
+console.log('El segundo actual es: ', reproductor.segundo );
+console.log('La cancion actual es: ', reproductor.cancion);
+console.log('El volumen actual es: ', reproductor.detalles.autor);
+
+
+/* Vamos a desetructurar el objeto y observremos que al imprimir no necesitamos escribir
+reproductor.algo................
+
+*/
+
+const {volumen,segundo, cancion, detalles} = reproductor; // Aquie se desestructura elobjeto
+const {autor} = detalles; // aca destructura el objeto detalle que traje arriba
+
+
+/* Tambien podriamos desetructurar el objeto detalle en una sola linea asi:
+
+const {volumen,segundo, cancion, detalles: { autor}} = reproductor;     */
+ 
+/* podemos cambiar el nombre a las variables en el caso de que tengamos una igual en el codigo
+
+EJEMPLO
+
+const autor = 'fulano'; // ya existe una variable autor, cambio la de la desestructuracion asi
+
+const {volumen,segundo, cancion, detalles: { autor: autorDetalle}} = reproductor;  
+
+*/
+
+console.log('El volumen actual es: ', volumen);
+console.log('El segundo actual es: ', segundo );
+console.log('La cancion actual es: ', cancion);
+console.log('El volumen actual es: ', reproductor.detalles.autor);
+
+
+/* DESESTRUCTURACION DE ARREGLOS */
+
+/* Creamos el arreglo */
+const dbz: string[] = ['Goku', 'Vegeta', 'Trunks']
+
+/* Se puede imprimir normalmente asi */
+
+console.log('Personaje 1: ', dbz[0]);
+console.log('Personaje 2: ', dbz[1]);
+console.log('Personaje 3: ', dbz[2]);
+
+/* Pero es mejor desestructurar el arreglo asi */
+
+const [p1,p2,p3] = dbz; // Se colocan los nombres depediendo de la posicion
+
+console.log('Personaje 1: ', p1);
+console.log('Personaje 2: ', p2);
+console.log('Personaje 3: ', p3);
+
+/* Si queremos un solo dato se asi */
+
+const [,p4,] = dbz;
+
+console.log('Personaje 3: ', p4);
+
+
+/* DESeSTRUCTURACION DE ARGUMENTOS */
+
+
+/* Creamos una interface*/
+
+interface Producto {
+
+    desc: string;
+    precio: number;
+}
+
+
+/* Creamos los objetos de tipo productos */
+
+
+const telefono: Producto = {
+desc: 'Nokia',
+precio: 150000
+}
+
+
+const tableta: Producto = {
+    desc: 'iPad',
+    precio: 300000
+    
+}
+
+/*Creamos una funcion que reciba  un  arreglo de
+productos calcule el impuesto*/
+
+
+function calculaImpuestoVenta(productos: Producto[]): number{
+    let total = 0;   
+
+    /* Aqui desestructuramos el argumento,
+    si no nos toria asi    
+     productos.forEach((producto: Productos) =>{
+        total += producto.precio;
+    }) */
+    productos.forEach(({precio}) =>{
+
+        total += precio;
+
+    }) 
+
+    return total * 0.15;
+}
+
+
+/* Creamos el arreglo de productos*/
+const articulos = [telefono,tableta];
+
+
+/* Llamamos la funcion*/
+
+const inv = calculaImpuestoVenta(articulos);
+
+
+/* Imprimo el valor calculado*/
+
+
+console.log('Impuesto: ', inv)
+
+/*  Tambien se puede retornar un arreglo
+ y desestructuralo asi */
+
+ function calculaImpuestoVentaN(productos: Producto[]): [number,number]{
+    let total = 0;   
+    productos.forEach(({precio}) =>{
+        total += precio;
+    }) 
+    return [total,total * 0.15];
+}
+
+
+/* Llamamos la funcion desestructurando el arreglo que se recibe*/
+
+const [total, isv]= calculaImpuestoVentaN(articulos);
+
+
+/* Imprimo el valor calculado desestructurado*/
+
+
+console.log('Total: ', total)
+console.log('Impuesto: ', isv)
+
+
+
+import { calculaImpuestoVentaN, Producto } from "./06-destructuracion-argumentos-function";
+
+/* Importaciones y Exportaciones*/
+
+
+
+/*Debemos importar la interface producto de la clase pasada
+
+1. Debemos exportar la interface de la clase pasada
+2. Importar el producto
+
+    import { Producto } from "./ejercicios/06-destructuracion-argumentos-function";
+*/
+
+
+/* Creamos un arreglo para probar que si importo la interface */
+
+const carritoCompras: Producto[] = [
+    {
+        desc: 'Telefono',
+        precio: 100
+    },
+    {
+        desc: 'Celular',
+        precio: 200
+    }
+]; 
+
+/* Aplicamos la funcion, importandola */
+
+/* Llamamos la funcion desestructurando el arreglo que se recibe*/
+
+const [total, isv] = calculaImpuestoVentaN(carritoCompras);
+console.log('Total: ', total)
+console.log('Impuesto: ', isv)
+
+
+*** Clases Basicas
+
+// Vamos a crear otra clase para explicar el extends
+// Vamos a extender la clase heroe, que hereda de la clase pérsonaNormal,ver abajo
+
+class PersonaNormal {
+
+    constructor(
+        public nombre: string,
+        public direccion: string
+    ){}
+}
+
+
+class Heroe extends PersonaNormal {
+
+// propiedades de la clase
+
+//private alterEgo: string; // Esta variable solo es visible en esta clase
+//public edad: number; // Es visible afuera de la clase
+//static nombreReal: number; // Se puede acceder sin instanciar la clase
+
+
+/* Constructores de la forma tradicional
+
+constructor( alterEgo: string, edad: number){
+
+   this.alterEgo = alterEgo;
+   this.edad = edad;
+   
+}*/
+
+// Constructor y clase como se utiliza en typescript, se comentaron las
+// lineas 10,11 y 12 para explicar
+
+constructor(
+    public alterEgo: string,
+    public edad?: number,
+    public nombreReal?: string
+    ){
+
+        super(nombreReal, 'Barranquilla'); // Aca recibo los parametros de la clase padre
+
+    } 
+}
+
+
+// Instanciamos una clase 
+
+const iroman = new Heroe('Iroman', 15);
+
+console.log(iroman)
+
+
+** Genericos
+
+// Genericos
+
+// Esta funcion generica recie cualquier tipo de daos
+function queTipoSoy<T>(argumento:T) {
+    return argumento;
+}
+
+// Aca puedo crear variables y la funcion define que tipo de dato es
+let soyString = queTipoSoy('Hola Mundo');
+let soyNumber = queTipoSoy(100);
+let soyArreglo = queTipoSoy([1,2,3,4,5,6]);
+
+// Tambien se puede especificar
+
+let souExplicito = queTipoSoy<number>(100);
+
+** Decoradores
+
+/*Ejemplo de decorador en la url: typescriptlang.org/docs/handbook/decorators.html#class-decorators */
+function classDecorator<T extends{ new (...args: any[]): {}}> (
+    constructor: T
+){
+    return class extends constructor {
+        newProperty = "new property";
+        hello = "pverride";
+    };
+}
+
+
+
+/*Utilizamos el decorador que sacamos de la documentoacion en la url anterior*/
+
+ // hay que descomentar  "experimentalDecorators": true,  del archivo tsconfig.json
+// y colocar una coma antes
+
+@classDecorator // Es una funcion que expande la clase añadiendo funcionalidades
+class MiSuperClase{
+
+    // Propiedad    
+    public miPropiedad: string = 'ABC123';
+
+    // Metodo
+    imprimir(){
+        console.log('Hola Mundo')
+        }
+
+}
+
+/* Imprimimos la clase actuar al decorador, hay que volver a abrir el servidor para que tome los cambios */
+
+console.log(MiSuperClase);
+
+
+// Instanciamos un objeto de tipo MisuperClase
+const miClase = new MiSuperClase();
+
+// Imprimimos la propiedad
+console.log(miClase.miPropiedad);
+
+
+
+*** Encadenamiento opcional
+
+/* Encadenamiento opcional */
+
+
+/* Creamos una interface */
+
+interface Pasajero{
+
+    nombre: string;
+    hijos?: string[];
+}
+
+/* Creamos 2 pasajeros */
+
+
+const pasajero1: Pasajero = {
+    nombre: 'Gabriel'
+}
+
+const pasajero2: Pasajero = {
+    nombre: 'Stefany',
+    hijos: ['Angel', 'Samuel']
+}
+
+/*Creamos una funcion que no retorne nada pero imprima cuantos hijos tiene elpersonaje */
+
+function imprimeHijos(pasajero: Pasajero): void{
+
+
+    /*// Si el objeto no tiene valor en una propiedad opcional, se debe colocar el ? y la condicion
+    || para que retorne un valor y no indefinido */
+    const cuantosHijos = pasajero.hijos?.length || 0; 
+
+
+    console.log(cuantosHijos);
+}
+
+/* Utilizamos la funcion */
+
+imprimeHijos(pasajero1)
+imprimeHijos(pasajero2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
